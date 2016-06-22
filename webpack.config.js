@@ -21,7 +21,8 @@ module.exports = {
         new webpack.NoErrorsPlugin(),
         new HtmlWebpackPlugin({
 	      template: 'src/index.html',
-	      inject: true
+	      inject: true,
+          favicon: 'src/favicon.ico',
 	    }),
         new ExportFilesWebpackPlugin('index.html')
 	],
