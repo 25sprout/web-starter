@@ -34,9 +34,9 @@
   "author": "Kai Hao <kevin830726@gmail.com> (http://github.com/kevin940726)",
   "license": "MIT",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/25sprout/web-starter/issues"
   },
-  "homepage": "",
+  "homepage": "https://github.com/25sprout/web-starter",
   "devDependencies": {
     "babel-core": "^6.0.20",
     "babel-eslint": "^6.0.5",

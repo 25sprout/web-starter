@@ -23,3 +23,14 @@ You can also open port other than 8000, take 8080 for example.
 npm start -- -p 8080
 ```
 Or simply edit the config in `package.json`.
+
+### Build
+```bash
+npm run build
+```
+Built files are now in `dist/`.
+
+### lint
+```bash
+npm run lint
+```
