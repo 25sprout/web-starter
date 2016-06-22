@@ -1,5 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExportFilesWebpackPlugin = require('export-files-webpack-plugin');
 
 module.exports = {
 	devtool: 'eval',
@@ -15,7 +17,13 @@ module.exports = {
 		publicPath: '/dist/'
 	},
 	plugins: [
-		new webpack.HotModuleReplacementPlugin()
+		new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin(),
+        new HtmlWebpackPlugin({
+	      template: 'src/index.html',
+	      inject: true
+	    }),
+        new ExportFilesWebpackPlugin('index.html')
 	],
 	module: {
 		loaders: [
