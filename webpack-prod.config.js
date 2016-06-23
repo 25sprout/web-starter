@@ -35,7 +35,7 @@ module.exports = {
 			{
 		    	test: /\.(jpg|png|gif)$/,
 		    	loaders: [
-					'file-loader',
+					'file-loader?name=./assets/[name]__[hash].[ext]',
 		    		'image-webpack?{progressive:true, interlaced: false, pngquant:{quality: "65-90", speed: 4}}',
 		    	],
 				include: path.join(__dirname, 'src')
