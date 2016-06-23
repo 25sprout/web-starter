@@ -32,6 +32,14 @@ module.exports = {
                 loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'),
                 include: path.join(__dirname, 'src')
 		    },
+			{
+		    	test: /\.(jpg|png|gif)$/,
+		    	loaders: [
+					'file-loader',
+		    		'image-webpack?{progressive:true, interlaced: false, pngquant:{quality: "65-90", speed: 4}}',
+		    	],
+				include: path.join(__dirname, 'src')
+		    }
         ]
 	},
     postcss: function (webpack) {
