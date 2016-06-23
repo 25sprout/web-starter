@@ -22,8 +22,7 @@ module.exports = {
         new HtmlWebpackPlugin({
 	      template: 'src/index.php',
 	      inject: true,
-          favicon: 'src/favicon.ico',
-		  filename: 'index.php'
+          favicon: 'src/favicon.ico'
 	    }),
         new ExportFilesWebpackPlugin('index.html')
 	],
