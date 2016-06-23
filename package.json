@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Boilerplate for ReactJS project with hot code reloading",
   "scripts": {
+    "prestart": "rm -f index.html",
     "start": "node server.js",
     "clean": "rm -rf dist",
     "prebuild": "npm run clean",
