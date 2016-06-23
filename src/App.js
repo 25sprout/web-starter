@@ -3,8 +3,8 @@ import styles from './App.css';
 import sprout from './assets/sprout.png';
 
 const App = () => (
-	<div>
-		<h1 className={styles.app}>Hello, world!</h1>
+	<div className={styles.container}>
+		<h1>Hello, sprouters!</h1>
 		<img src={sprout} alt="sprout" />
 	</div>
 );
