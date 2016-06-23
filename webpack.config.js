@@ -20,9 +20,10 @@ module.exports = {
 		new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new HtmlWebpackPlugin({
-	      template: 'src/index.html',
+	      template: 'src/index.php',
 	      inject: true,
           favicon: 'src/favicon.ico',
+		  filename: 'index.php'
 	    }),
         new ExportFilesWebpackPlugin('index.html')
 	],

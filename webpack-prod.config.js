@@ -73,7 +73,7 @@ module.exports = {
 
 	    // Minify and optimize the index.html
 	    new HtmlWebpackPlugin({
-	      template: './index.html',
+	      template: 'src/index.php',
 	      minify: {
 	        removeComments: true,
 	        collapseWhitespace: true,
@@ -88,7 +88,8 @@ module.exports = {
 	      },
 		  favicon: 'src/favicon.ico',
 	      inject: true,
-		  showErrors: false
+		  showErrors: false,
+		  filename: 'index.php'
 	    }),
 
 	    // Extract the CSS into a seperate file
