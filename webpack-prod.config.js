@@ -1,12 +1,20 @@
 var path = require('path');
 var webpack = require('webpack');
+var glob = require('glob');
+
+var entries = glob.sync('./src/entries/*.js')
+	.reduce((e, cur) => (
+		Object.assign(
+			e,
+			{ [path.basename(cur, '.js')]: cur }
+		)
+	), {});
 
 module.exports = {
 	devtool: 'source-map',
-	entry: [
-		'./src/index',
-		'./src/entry'
-	],
+	entry: Object.assign({}, entries, {
+		views: './src/entry'
+	}),
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: '[name].js',
@@ -16,7 +24,7 @@ module.exports = {
 		loaders: [
             {
     			test: /\.js$/,
-    			loaders: ['babel'],
+    			loader: 'babel',
     			include: path.join(__dirname, 'src')
 		    },
             {
@@ -39,7 +47,7 @@ module.exports = {
 		    },
 			{
 				test: /\.ejs$/,
-				loader: 'file?name=[name].php!ejs-html',
+				loader: 'file?name=[name].html!ejs-html',
 				include: path.join(__dirname, 'src')
 			},
         ]
