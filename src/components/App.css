@@ -1,0 +1,17 @@
+.container {
+	display: block;
+	text-align: center;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+	flex-direction: column;
+	background-color: rebeccapurple;
+
+	& h1 {
+		margin-top: 0;
+		color: #FFF;
+	}
+}
