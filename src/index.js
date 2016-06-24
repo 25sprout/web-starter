@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import App from './App';
+import App from './components/App';
 import './style.global.css';
 
 render(
@@ -11,9 +11,9 @@ render(
 
 /* eslint-disable global-require */
 if (module.hot) {
-	module.hot.accept('./App', () => {
+	module.hot.accept('./components/App', () => {
 		render(
-			<AppContainer component={require('./App').default} />,
+			<AppContainer component={require('./components/App').default} />,
 			document.getElementById('root')
 		);
 	});
