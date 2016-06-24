@@ -39,7 +39,7 @@ module.exports = {
 		    },
 			{
 				test: /\.ejs$/,
-				loader: 'file?name=[name].php!ejs-html',
+				loader: 'file?name=[name].php!ejs-html!html-minifier',
 				include: path.join(__dirname, 'src')
 			},
         ]
