@@ -1,6 +1,5 @@
 var path = require('path');
 var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExportFilesWebpackPlugin = require('export-files-webpack-plugin');
 
 module.exports = {
@@ -9,22 +8,18 @@ module.exports = {
 		'webpack-dev-server/client?http://0.0.0.0:8000',
 		'webpack/hot/only-dev-server',
         'react-hot-loader/patch',
-		'./src/index'
+		'./src/index',
+		'./src/entry'
 	],
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: 'bundle.js',
-		publicPath: '/dist/'
+		publicPath: ''
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
-        new HtmlWebpackPlugin({
-	      template: 'src/index.php',
-	      inject: true,
-          favicon: 'src/favicon.ico'
-	    }),
-        new ExportFilesWebpackPlugin('index.html')
+		new ExportFilesWebpackPlugin('[name].html'),
 	],
 	module: {
 		loaders: [
@@ -50,7 +45,12 @@ module.exports = {
 		    		'image-webpack?{progressive:true, interlaced: false, pngquant:{quality: "65-90", speed: 4}}',
 		    	],
 				include: path.join(__dirname, 'src')
-		    }
+		    },
+			{
+				test: /\.ejs$/,
+				loader: 'file?name=[name].html!ejs-html',
+				include: path.join(__dirname, 'src')
+			},
         ]
 	},
     postcss: function (webpack) {
@@ -58,10 +58,6 @@ module.exports = {
             require("postcss-import")({ addDependencyTo: webpack }),
             require("postcss-url")(),
             require("postcss-cssnext")(),
-            // add your "plugins" here
-            // ...
-            // and if you want to compress,
-            // just use css-loader option that already use cssnano under the hood
             require("postcss-browser-reporter")(),
             require("postcss-reporter")(),
         ]
