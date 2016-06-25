@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExportFilesWebpackPlugin = require('export-files-webpack-plugin');
 
 module.exports = {
@@ -8,8 +9,7 @@ module.exports = {
 		'webpack-dev-server/client?http://0.0.0.0:8000',
 		'webpack/hot/only-dev-server',
         'react-hot-loader/patch',
-		'./src/index',
-		'./src/entry'
+		'./src/index'
 	],
 	output: {
 		path: path.join(__dirname, 'dist'),
@@ -19,7 +19,11 @@ module.exports = {
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
-		new ExportFilesWebpackPlugin('[name].html'),
+		new HtmlWebpackPlugin({
+			template: './src/index.ejs',
+			filename: 'index.html',
+		}),
+		new ExportFilesWebpackPlugin('index.html'),
 	],
 	module: {
 		loaders: [
@@ -48,8 +52,8 @@ module.exports = {
 		    },
 			{
 				test: /\.ejs$/,
-				loader: 'file?name=[name].html!ejs-html',
-				include: path.join(__dirname, 'src')
+				loader: 'ejs-compiled',
+				include: path.join(__dirname, 'src/views')
 			},
         ]
 	},

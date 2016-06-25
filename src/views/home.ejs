@@ -1,0 +1,9 @@
+<h1>Home</h1>
+<ul class="todos">
+	<% for (var i in todos) { %>
+		<li class="todo">
+			<%= todos[i] %>
+			<button class="doneBtn">done</button>
+		</li>
+	<% } %>
+</ul>

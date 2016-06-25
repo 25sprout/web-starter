@@ -1,21 +1,35 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
-import App from './components/App';
-import './style.global.css';
+import $ from 'jquery';
+import page from 'page';
+import Home from './views/home.ejs';
+import About from './views/about.ejs';
+import NotFound from './views/404.ejs';
 
-render(
-	<AppContainer component={App} />,
-	document.getElementById('root')
-);
+const routingCallback = (view, data = {}) => () => {
+	document.getElementById('view').innerHTML = view(data);
+};
 
-/* eslint-disable global-require */
-if (module.hot) {
-	module.hot.accept('./components/App', () => {
-		render(
-			<AppContainer component={require('./components/App').default} />,
-			document.getElementById('root')
-		);
-	});
-}
-/* eslint-disable */
+page('/', ctx => {
+	if (!ctx.state.todos) {
+		ctx.state.todos = [
+			'setup enviroment',
+			'write code',
+			'take a break',
+			'back to work',
+		];
+
+		$('.todos .todo .doneBtn').click(function (e) {
+			e.preventDefault();
+			ctx.state.todos.splice($(this).parent().index(), 1);
+			console.log(ctx.state.todos, $(this).parent().index());
+
+			page('/');
+		});
+	} else {
+		document.getElementById('view').innerHTML = Home({
+			todos: ctx.state.todos,
+		});
+	}
+});
+page('/about', routingCallback(About));
+page('*', routingCallback(NotFound));
+page.start();
