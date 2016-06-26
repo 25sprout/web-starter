@@ -1,23 +1,19 @@
+/* eslint-disable */
 var path = require('path');
 var webpack = require('webpack');
-var glob = require('glob');
-
-var entries = glob.sync('./src/entries/*.js')
-	.reduce((e, cur) => (
-		Object.assign(
-			e,
-			{ [path.basename(cur, '.js')]: cur }
-		)
-	), {});
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 	devtool: 'source-map',
-	entry: Object.assign({}, entries, {
-		views: './src/entry'
-	}),
+	entry: {
+		app: './src/index',
+		vendor: ['page', 'react', 'react-dom']
+	},
 	output: {
 		path: path.join(__dirname, 'dist'),
-		filename: '[name].js',
+		filename: '[name].[chunkhash].js',
+		chunkFilename: "[name].[chunkhash].chunk.js",
 		publicPath: ''
 	},
 	module: {
@@ -29,12 +25,12 @@ module.exports = {
 		    },
             {
                 test: /\.global\.css$/,
-                loader: 'style-loader!css-loader?sourceMap!postcss-loader',
+                loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader'),
                 include: path.join(__dirname, 'src')
             },
             {
     			test: /^((?!\.global).)*\.css$/,
-                loader: 'style-loader!css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader',
+                loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'),
                 include: path.join(__dirname, 'src')
 		    },
 			{
@@ -47,8 +43,8 @@ module.exports = {
 		    },
 			{
 				test: /\.ejs$/,
-				loader: 'file?name=[name].html!ejs-html!html-minifier',
-				include: path.join(__dirname, 'src')
+				loader: 'ejs-compiled',
+				include: path.join(__dirname, 'src/views')
 			},
         ]
 	},
@@ -68,6 +64,8 @@ module.exports = {
 	      }
 	    }),
 
+		new webpack.optimize.CommonsChunkPlugin('vendor', '[name].[chunkhash].js'),
+
 	    // OccurrenceOrderPlugin is needed for long-term caching to work properly.
 	    // See http://mxs.is/googmv
 	    new webpack.optimize.OccurrenceOrderPlugin(true),
@@ -81,5 +79,25 @@ module.exports = {
 	        warnings: false, // ...but do not show warnings in the console (there is a lot of them)
 	      },
 	    }),
+
+		new HtmlWebpackPlugin({
+			template: './src/index.ejs',
+			filename: 'index.html',
+			minify: {
+		        removeComments: true,
+		        collapseWhitespace: true,
+		        removeRedundantAttributes: true,
+		        useShortDoctype: true,
+		        removeEmptyAttributes: true,
+		        removeStyleLinkTypeAttributes: true,
+		        keepClosingSlash: true,
+		        minifyJS: true,
+		        minifyCSS: true,
+		        minifyURLs: true,
+		    },
+		}),
+
+		// Extract the CSS into a seperate file
+	    new ExtractTextPlugin('[name].[contenthash].css'),
 	],
 };

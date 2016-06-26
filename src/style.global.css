@@ -9,7 +9,7 @@ html, body {
 	font-family: 'Open Sans', 'Noto Sans TC', sans-serif;
 }
 
-#root {
-	height: 100%;
+#view {
+	height: 80%;
 	width: 100%;
 }

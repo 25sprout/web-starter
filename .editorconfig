@@ -9,5 +9,5 @@ indent_size = 4
 [*.json]
 indent_size = 2
 
-[*.php, *.html]
+[*.php, *.html, *.ejs]
 indent_size = 2
