@@ -80,6 +80,7 @@ module.exports = {
 	      },
 	    }),
 
+		// Minify HTML entry
 		new HtmlWebpackPlugin({
 			template: './src/index.ejs',
 			filename: 'index.html',
