@@ -7,6 +7,7 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import createLogger from 'redux-logger';
 import * as reducers from './reducers';
 import Routes from './routes';
+import { install } from 'offline-plugin/runtime';
 import './style.global.css';
 
 const logger = createLogger();
@@ -43,3 +44,6 @@ if (module.hot) {
 	});
 }
 /* eslint-disable */
+
+// offline plugin install
+install();
