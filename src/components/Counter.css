@@ -1,0 +1,22 @@
+.counter {
+	& .number {
+		color: #FFF;
+		font-size: 80px;
+	}
+
+	& button {
+		font-size: 40px;
+		background-color: transparent;
+		border: 0;
+		margin: 0 5px;
+		cursor: pointer;
+		color: #FFF
+	}
+
+	& a {
+		margin-top: 20px;
+		display: block;
+		color: #FFF;
+		font-size: 20px;
+	}
+}

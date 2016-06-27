@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import styles from './Counter.css';
 
 const Counter = ({ count, increment, decrement }) => (
-	<div>
-		<div>{count}</div>
+	<div className={styles.counter}>
+		<div className={styles.number}>{count}</div>
 		<button onClick={decrement}>-</button>
 		<button onClick={increment}>+</button>
 		<Link to="/">Home</Link>
