@@ -9,15 +9,15 @@ module.exports = {
 	devtool: 'source-map',
 	entry: {
 		app: './src/index',
-		vendor: [
-			'react',
-			'react-dom',
-			'react-router',
-			'redux',
-			'react-redux',
-			'react-router-redux',
-			'redux-actions',
-		]
+		// vendor: [
+		// 	'react',
+		// 	'react-dom',
+		// 	'react-router',
+		// 	'redux',
+		// 	'react-redux',
+		// 	'react-router-redux',
+		// 	'redux-actions',
+		// ]
 	},
 	output: {
 		path: path.join(__dirname, 'dist'),
@@ -68,12 +68,12 @@ module.exports = {
 	      }
 	    }),
 
-	    new webpack.optimize.CommonsChunkPlugin({
-	      name: 'vendor',
-	      children: true,
-	      minChunks: 2,
-	      async: true,
-	    }),
+	    // new webpack.optimize.CommonsChunkPlugin({
+	    //   name: 'vendor',
+	    //   children: true,
+	    //   minChunks: 2,
+	    //   async: true,
+	    // }),
 
 	    // OccurrenceOrderPlugin is needed for long-term caching to work properly.
 	    // See http://mxs.is/googmv
