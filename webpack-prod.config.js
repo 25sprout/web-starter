@@ -1,3 +1,4 @@
+/* eslint-disable */
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -6,9 +7,18 @@ var OfflinePlugin = require('offline-plugin');
 
 module.exports = {
 	devtool: 'source-map',
-	entry: [
-		'./src/index'
-	],
+	entry: {
+		app: './src/index',
+		vendor: [
+			'react',
+			'react-dom',
+			'react-router',
+			'redux',
+			'react-redux',
+			'react-router-redux',
+			'redux-actions',
+		]
+	},
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: '[name].[chunkhash].js',
@@ -81,7 +91,7 @@ module.exports = {
 
 	    // Minify and optimize the index.html
 	    new HtmlWebpackPlugin({
-	      template: 'src/index.php',
+	      template: 'src/index.html',
 	      minify: {
 	        removeComments: true,
 	        collapseWhitespace: true,
@@ -97,7 +107,7 @@ module.exports = {
 		  favicon: 'src/favicon.ico',
 	      inject: true,
 		  showErrors: false,
-		  filename: 'index.php'
+		  filename: 'index.html'
 	    }),
 
 	    // Extract the CSS into a seperate file

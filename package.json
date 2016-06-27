@@ -5,7 +5,7 @@
   "scripts": {
     "prestart": "rm -f index.html",
     "start": "node server.js",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist/*",
     "prebuild": "npm run clean",
     "build": "NODE_ENV=production webpack --config webpack-prod.config.js",
     "lint": "eslint src"
@@ -68,6 +68,7 @@
     "postcss-url": "^5.1.2",
     "pre-push": "^0.1.1",
     "react-hot-loader": "^3.0.0-alpha.8",
+    "redux-logger": "^2.6.1",
     "style-loader": "^0.13.1",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.12.1",
@@ -76,6 +77,10 @@
   "dependencies": {
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
-    "react-router": "^2.5.0"
+    "react-redux": "^4.4.5",
+    "react-router": "^2.5.1",
+    "react-router-redux": "^4.0.5",
+    "redux": "^3.5.2",
+    "redux-actions": "^0.10.0"
   }
 }

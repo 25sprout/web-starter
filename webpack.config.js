@@ -20,7 +20,7 @@ module.exports = {
 		new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new HtmlWebpackPlugin({
-	      template: 'src/index.php',
+	      template: 'src/index.html',
 	      inject: true,
           favicon: 'src/favicon.ico'
 	    }),
