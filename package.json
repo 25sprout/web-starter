@@ -16,7 +16,8 @@
   ],
   "config": {
     "PORT": 8000,
-    "DB_PORT": 8001
+    "DB_PORT": 8001,
+    "DELAY": 500
   },
   "repository": {
     "type": "git",
