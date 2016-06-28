@@ -2,26 +2,36 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 import App from './components/App';
-import Home from './components/Home';
-import Counter from './containers/Counter';
+import createReducer from './reducers';
 
-const routes = {
+const injectReducer = store => (name, asyncReducer) => {
+	store.asyncReducers[name] = asyncReducer;
+	store.replaceReducer(createReducer(store.asyncReducers));
+};
+
+const createRoutes = store => ({
 	path: '/',
 	component: App,
 	indexRoute: {
-		component: Home,
+		getComponent: (nextState, cb) => require.ensure([], require =>
+			cb(null, require('./components/Home').default)),
 	},
 	childRoutes: [
 		{
 			path: '/counter',
-			component: Counter,
+			getComponent: (nextState, cb) => require.ensure([], require => {
+				const reducer = require('./reducers/counter').default;
+				const component = require('./containers/Counter').default;
+				injectReducer(store)('counter', reducer);
+				cb(null, component);
+			}),
 		},
 	],
-};
+});
 
 const Routes = ({ store, history }) => (
 	<Provider store={store}>
-		<Router history={history} routes={routes} />
+		<Router history={history} routes={createRoutes(store)} />
 	</Provider>
 );
 

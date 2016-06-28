@@ -1,11 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
 import { browserHistory } from 'react-router';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+import { syncHistoryWithStore } from 'react-router-redux';
 import createLogger from 'redux-logger';
-import * as reducers from './reducers';
+// import * as reducers from './reducers';
+import createReducer from './reducers';
 import Routes from './routes';
 import { install } from 'offline-plugin/runtime';
 import './style.global.css';
@@ -13,16 +14,28 @@ import './style.global.css';
 const logger = createLogger();
 
 const store = createStore(
-	combineReducers({
-		...reducers,
-		routing: routerReducer,
-	}),
+	createReducer(),
 	{},
 	compose(
 		applyMiddleware(logger),
 		window.devToolsExtension ? window.devToolsExtension() : f => f
 	)
 );
+
+// async reducers registry
+store.asyncReducers = {};
+
+// Make reducers hot reloadable, see http://mxs.is/googmo
+/* eslint-disable global-require */
+if (module.hot) {
+	module.hot.accept('./reducers', () => {
+		const createReducers = require('./reducers').default;
+		const nextReducers = createReducers(store.asyncReducers);
+
+		store.replaceReducer(nextReducers);
+	});
+}
+/* eslint-disable global-require */
 
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -43,7 +56,7 @@ if (module.hot) {
 		);
 	});
 }
-/* eslint-disable */
+/* eslint-disable global-require */
 
 // offline plugin install
 install();
