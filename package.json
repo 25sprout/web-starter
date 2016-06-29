@@ -73,7 +73,6 @@
     "postcss-url": "^5.1.2",
     "pre-push": "^0.1.1",
     "react-hot-loader": "^3.0.0-alpha.8",
-    "redux-logger": "^2.6.1",
     "style-loader": "^0.13.1",
     "stylelint": "^6.7.1",
     "stylelint-config-standard": "^9.0.0",
