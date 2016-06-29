@@ -3,7 +3,7 @@ import FilterGroup from '../components/FilterGroup';
 import { replace } from 'react-router-redux';
 
 const mapStateToProps = state => ({
-	filter: state.todos.filter,
+	filter: state.todos.filter || 'all',
 });
 
 const mapDispatchToProps = dispatch => ({
