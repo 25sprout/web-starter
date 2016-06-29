@@ -7,14 +7,11 @@ var ip = require('ip');
 var argv = require('yargs')
     .default('p', pacakge.config.PORT || 8000)
     .default('a', pacakge.config.DB_PORT || 8001)
-    .default('d', pacakge.config.DELAY || 500)
     .argv;
 var jsonServer = require('json-server');
-var pause = require('connect-pause');
 
 var PORT = argv.p;
 var DB_PORT = argv.a;
-var DELAY = argv.d;
 
 new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
@@ -33,7 +30,6 @@ new WebpackDevServer(webpack(config), {
 
   jsonServer.create()
       .use(jsonServer.defaults())
-      .use(pause(DELAY))
       .use(jsonServer.router('db.json'))
       .listen(DB_PORT, function(err) {
           if (err) {
