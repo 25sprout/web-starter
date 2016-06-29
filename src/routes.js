@@ -4,11 +4,16 @@ import { Router } from 'react-router';
 import App from './components/App';
 import createReducer from './reducers';
 
-import { loadTodos } from './actions/todos';
+import { loadTodos, setFilter } from './actions/todos';
 
-const injectReducer = store => (name, asyncReducer) => {
-	store.asyncReducers[name] = asyncReducer;
-	store.replaceReducer(createReducer(store.asyncReducers));
+const injectReducer = store => (name, asyncReducer, action) => {
+	if (!store.asyncReducers[name]) {
+		store.asyncReducers[name] = asyncReducer;
+		store.replaceReducer(createReducer(store.asyncReducers));
+		if (action) {
+			store.dispatch(action);
+		}
+	}
 };
 
 const createRoutes = store => ({
@@ -29,14 +34,19 @@ const createRoutes = store => ({
 			}),
 		},
 		{
-			path: '/todos',
+			path: '/todos(/:filter)',
 			getComponent: (nextState, cb) => require.ensure([], require => {
 				const reducer = require('./reducers/todos').default;
-				const component = require('./containers/Todos').default;
-				injectReducer(store)('todos', reducer);
-				store.dispatch(loadTodos());
+				const component = require('./components/TodosCard').default;
+				injectReducer(store)('todos', reducer, loadTodos());
 				cb(null, component);
 			}),
+			onEnter: ({ params }) => {
+				store.dispatch(setFilter(params.filter));
+			},
+			onChange: (prevState, nextState) => {
+				console.log(prevState.params, nextState.params);
+			},
 		},
 	],
 });

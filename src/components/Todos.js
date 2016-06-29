@@ -1,15 +1,18 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import { List } from 'material-ui/List';
+import Todo from '../containers/Todo';
 
 const Todos = ({ todos }) => (
-	<div>
-		<ul>
-			{todos.map(todo => (
-				<li key={todo.id}>{todo.text}</li>
-			))}
-		</ul>
-		<Link to="/">Home</Link>
-	</div>
+	<List>
+		{todos.toArray().map(todo => (
+			<Todo
+				key={todo.get('id')}
+				todoId={todo.get('id')}
+				isChecked={todo.get('isChecked')}
+				text={todo.get('text')}
+			/>
+		))}
+	</List>
 );
 
 Todos.propsTypes = {

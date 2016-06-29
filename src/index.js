@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import promiseMiddleware from 'redux-promise';
 import createReducer from './reducers';
 import Routes from './routes';
@@ -14,11 +14,13 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
 
+const reduxRouterMiddleware = routerMiddleware(browserHistory);
+
 const store = createStore(
 	createReducer(),
 	{},
 	compose(
-		applyMiddleware(promiseMiddleware),
+		applyMiddleware(reduxRouterMiddleware, promiseMiddleware),
 		window.devToolsExtension ? window.devToolsExtension() : f => f
 	)
 );
