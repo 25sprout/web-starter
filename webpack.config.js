@@ -2,7 +2,6 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExportFilesWebpackPlugin = require('export-files-webpack-plugin');
 var StyleLintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = {
@@ -16,7 +15,7 @@ module.exports = {
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: 'bundle.js',
-		publicPath: '/dist/'
+		publicPath: ''
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
@@ -26,7 +25,6 @@ module.exports = {
 	      inject: true,
           favicon: 'src/favicon.ico'
 	    }),
-        new ExportFilesWebpackPlugin('index.html'),
 		new StyleLintPlugin({
 			files: 'src/**/*.css',
 		}),

@@ -18,7 +18,7 @@ new WebpackDevServer(webpack(config), {
   hot: true,
   noInfo: true,
   historyApiFallback: {
-      index: 'index.html'
+      index: 'dist/index.html'
   }
 }).listen(PORT, '0.0.0.0', function (err, result) {
   if (err) {
