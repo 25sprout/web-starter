@@ -10,6 +10,9 @@ import Routes from './routes';
 import { install } from 'offline-plugin/runtime';
 import 'sanitize.css/sanitize.css';
 import './style.global.css';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+injectTapEventPlugin();
 
 const store = createStore(
 	createReducer(),
