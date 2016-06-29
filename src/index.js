@@ -9,6 +9,7 @@ import createLogger from 'redux-logger';
 import createReducer from './reducers';
 import Routes from './routes';
 import { install } from 'offline-plugin/runtime';
+import 'normalize-css';
 import './style.global.css';
 
 const logger = createLogger();

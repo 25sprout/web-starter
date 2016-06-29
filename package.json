@@ -8,7 +8,7 @@
     "clean": "rm -rf dist/*",
     "prebuild": "npm run clean",
     "build": "NODE_ENV=production webpack --config webpack-prod.config.js",
-    "lint": "eslint src",
+    "lint": "eslint src && stylelint src/**/*.css",
     "json-server": "json-server -w db.json -p 8001"
   },
   "pre-push": [
@@ -83,6 +83,7 @@
     "yargs": "^4.7.1"
   },
   "dependencies": {
+    "normalize-css": "^2.3.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
