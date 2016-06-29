@@ -75,6 +75,9 @@
     "react-hot-loader": "^3.0.0-alpha.8",
     "redux-logger": "^2.6.1",
     "style-loader": "^0.13.1",
+    "stylelint": "^6.7.1",
+    "stylelint-config-standard": "^9.0.0",
+    "stylelint-webpack-plugin": "^0.2.0",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1",
     "yargs": "^4.7.1"

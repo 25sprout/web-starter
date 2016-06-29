@@ -4,6 +4,7 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var OfflinePlugin = require('offline-plugin');
+var StyleLintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = {
 	devtool: 'source-map',
@@ -45,7 +46,7 @@ module.exports = {
 	},
     postcss: function (webpack) {
         return [
-            require("postcss-import")({ addDependencyTo: webpack }),
+			require("postcss-import")({ addDependencyTo: webpack }),
             require("postcss-url")(),
             require("postcss-cssnext")(),
             require("postcss-browser-reporter")(),
@@ -100,6 +101,12 @@ module.exports = {
 		  showErrors: false,
 		  filename: 'index.html'
 	    }),
+
+		// stylelint css files
+		new StyleLintPlugin({
+			files: 'src/**/*.css',
+			failOnError: true,
+		}),
 
 	    // Extract the CSS into a seperate file
 	    new ExtractTextPlugin('[name].[contenthash].css'),
