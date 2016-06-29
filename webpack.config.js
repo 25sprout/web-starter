@@ -38,6 +38,12 @@ module.exports = {
     			loaders: ['babel'],
     			include: path.join(__dirname, 'src')
 		    },
+			{
+				// Do not transform vendor's CSS with CSS-modules
+				test: /\.css$/,
+				loaders: ['style-loader', 'css-loader'],
+				include: path.join(__dirname, 'node_modules')
+			},
             {
                 test: /\.global\.css$/,
                 loader: 'style-loader!css-loader!postcss-loader',
