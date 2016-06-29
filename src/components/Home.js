@@ -5,9 +5,11 @@ import { Link } from 'react-router';
 const Home = () => (
 	<div>
 		<h1>Hello, sprouters!</h1>
-		<Link to="/counter">
-			<img src={sprout} alt="sprout" />
-		</Link>
+		<img src={sprout} alt="sprout" />
+		<nav>
+			<Link to="/counter">Counter</Link>
+			<Link to="/todos">Todos</Link>
+		</nav>
 	</div>
 );
 

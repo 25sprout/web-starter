@@ -4,6 +4,7 @@ import { AppContainer } from 'react-hot-loader';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import promiseMiddleware from 'redux-promise';
 import createReducer from './reducers';
 import Routes from './routes';
 import { install } from 'offline-plugin/runtime';
@@ -14,7 +15,7 @@ const store = createStore(
 	createReducer(),
 	{},
 	compose(
-		applyMiddleware(),
+		applyMiddleware(promiseMiddleware),
 		window.devToolsExtension ? window.devToolsExtension() : f => f
 	)
 );

@@ -10,6 +10,8 @@ module.exports = {
 		'webpack-dev-server/client?http://0.0.0.0:8000',
 		'webpack/hot/only-dev-server',
         'react-hot-loader/patch',
+		'babel-polyfill',
+		'whatwg-fetch',
 		'./src/index'
 	],
 	output: {

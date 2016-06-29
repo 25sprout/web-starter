@@ -1,8 +1,8 @@
 {
 	"todos": [
-		{ "id": 1, "todo": "Work it harder." },
-		{ "id": 2, "todo": "Make it better." },
-		{ "id": 3, "todo": "Do it faster." },
-		{ "id": 4, "todo": "Makes us stronger." }
+		{ "id": 1, "text": "Work it harder." },
+		{ "id": 2, "text": "Make it better." },
+		{ "id": 3, "text": "Do it faster." },
+		{ "id": 4, "text": "Makes us stronger." }
 	]
 }
