@@ -1,16 +1,19 @@
 import React from 'react';
 import sprout from '../assets/sprout.png';
-import { Link } from 'react-router';
+import { Card, CardMedia, CardTitle, CardActions } from 'material-ui/Card';
+import NaviButton from '../containers/NaviButton';
 
 const Home = () => (
-	<div>
-		<h1>Hello, sprouters!</h1>
-		<img src={sprout} alt="sprout" />
-		<nav>
-			<Link to="/counter">Counter</Link>
-			<Link to="/todos">Todos</Link>
-		</nav>
-	</div>
+	<Card style={{ padding: '30px 40px' }}>
+		<CardTitle title="Hello, sprouters!" />
+		<CardMedia>
+			<img src={sprout} alt="sprout" />
+		</CardMedia>
+		<CardActions>
+			<NaviButton label="COUNTER" to="/counter" />
+			<NaviButton label="TODOS" to="/todos" />
+		</CardActions>
+	</Card>
 );
 
 export default Home;

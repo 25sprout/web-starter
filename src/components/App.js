@@ -1,10 +1,13 @@
 import React from 'react';
 import styles from './App.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const App = ({ children }) => (
-	<div className={styles.container}>
-		{children}
-	</div>
+	<MuiThemeProvider>
+		<div className={styles.container}>
+			{children}
+		</div>
+	</MuiThemeProvider>
 );
 
 export default App;
