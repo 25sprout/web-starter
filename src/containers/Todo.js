@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
+import { checkTodo, deleteTodo } from '../actions/todos';
 import Todo from '../components/Todo';
-import { checkTodo } from '../actions/todos';
 
 const mapDispatchToProps = dispatch => ({
-	onCheck: (id, isChecked) => {
-		dispatch(checkTodo(id, isChecked));
-	},
+	onCheck: (id, isChecked) => dispatch(checkTodo(id, isChecked)),
+	onDelete: id => dispatch(deleteTodo(id)),
 });
 
 export default connect(null, mapDispatchToProps)(Todo);

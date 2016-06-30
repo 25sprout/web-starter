@@ -23,3 +23,5 @@ export const addTodo = createAction('ADD_TODO', value => Map({
 }));
 
 export const setFilter = createAction('SET_FILTER');
+
+export const deleteTodo = createAction('DELETE_TODO');

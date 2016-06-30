@@ -24,6 +24,11 @@ export default handleActions({
 		...state,
 		filter: action.payload,
 	}),
+
+	DELETE_TODO: (state, action) => ({
+		...state,
+		todos: state.todos.delete(action.payload),
+	}),
 }, {
 	filter: 'all',
 	todos: OrderedMap(),
