@@ -10,8 +10,8 @@ const injectReducer = store => (name, asyncReducer, action) => {
 	if (!store.asyncReducers[name]) {
 		store.asyncReducers[name] = asyncReducer;
 		store.replaceReducer(createReducer(store.asyncReducers));
-		if (action) {
-			store.dispatch(action);
+		if (action && typeof action === 'function') {
+			store.dispatch(action());
 		}
 	}
 };
@@ -38,14 +38,11 @@ const createRoutes = store => ({
 			getComponent: (nextState, cb) => require.ensure([], require => {
 				const reducer = require('./reducers/todos').default;
 				const component = require('./components/TodosCard').default;
-				injectReducer(store)('todos', reducer, loadTodos());
+				injectReducer(store)('todos', reducer, loadTodos);
 				cb(null, component);
 			}),
 			onEnter: ({ params }) => {
 				store.dispatch(setFilter(params.filter));
-			},
-			onChange: (prevState, nextState) => {
-				console.log(prevState.params, nextState.params);
 			},
 		},
 	],
