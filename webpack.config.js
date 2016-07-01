@@ -70,6 +70,11 @@ module.exports = {
 				include: path.join(__dirname, 'src')
 		    },
 			{
+				test: /\.(ico)$/,
+		    	loader: 'file-loader?name=./[name].[ext]',
+				include: path.join(__dirname, 'src')
+			},
+			{
 				test: /\.ejs$/,
 				loader: 'file?name=[name].html!ejs-html',
 				include: path.join(__dirname, 'src')
