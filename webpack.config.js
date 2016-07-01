@@ -1,33 +1,56 @@
+/* eslint-disable */
 var path = require('path');
 var webpack = require('webpack');
 var ExportFilesWebpackPlugin = require('export-files-webpack-plugin');
+var glob = require('glob');
+var StyleLintPlugin = require('stylelint-webpack-plugin');
+
+var entries = glob.sync('./src/entries/*.js')
+	.reduce(function(obj, cur) {
+		obj[path.basename(cur, '.js')] = [
+			'babel-polyfill',
+			'whatwg-fetch',
+			cur,
+		];
+		return obj;
+	}, {
+		dev: [
+			'webpack-dev-server/client?http://0.0.0.0:8000',
+			'webpack/hot/only-dev-server',
+			'react-hot-loader/patch',
+			'./src/views',
+		],
+	});
 
 module.exports = {
 	devtool: 'eval',
-	entry: [
-		'webpack-dev-server/client?http://0.0.0.0:8000',
-		'webpack/hot/only-dev-server',
-        'react-hot-loader/patch',
-		'./src/index',
-		'./src/entry'
-	],
+	entry: entries,
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: '[name].js',
-		publicPath: ''
+		publicPath: '/'
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
 		new ExportFilesWebpackPlugin('[name].html'),
+		new StyleLintPlugin({
+			files: 'src/**/*.css',
+		}),
 	],
 	module: {
 		loaders: [
             {
     			test: /\.js$/,
-    			loaders: ['babel'],
+    			loader: 'babel',
     			include: path.join(__dirname, 'src')
 		    },
+			{
+				// Do not transform vendor's CSS with CSS-modules
+				test: /\.css$/,
+				loaders: ['style-loader', 'css-loader'],
+				include: path.join(__dirname, 'node_modules')
+			},
             {
                 test: /\.global\.css$/,
                 loader: 'style-loader!css-loader!postcss-loader',

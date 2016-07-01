@@ -31,6 +31,9 @@
         "func-names": 0,
         "no-param-reassign": [2, { "props": false }],
         "no-unused-vars": 1,
-        "react/jsx-indent": [2, "tab"]
+        "react/jsx-indent": [2, "tab"],
+        "react/jsx-indent-props": [2, "tab"],
+        "new-cap": 0,
+        "react/prop-types": 0
     }
 }

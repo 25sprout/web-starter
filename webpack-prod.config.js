@@ -1,24 +1,29 @@
+/* eslint-disable */
 var path = require('path');
 var webpack = require('webpack');
 var glob = require('glob');
+var OfflinePlugin = require('offline-plugin');
+var StyleLintPlugin = require('stylelint-webpack-plugin');
 
 var entries = glob.sync('./src/entries/*.js')
-	.reduce((e, cur) => (
-		Object.assign(
-			e,
-			{ [path.basename(cur, '.js')]: cur }
-		)
-	), {});
+	.reduce(function(obj, cur) {
+		obj[path.basename(cur, '.js')] = [
+			'babel-polyfill',
+			'whatwg-fetch',
+			cur,
+		];
+		return obj;
+	}, {
+		views: './src/views',
+	});
 
 module.exports = {
 	devtool: 'source-map',
-	entry: Object.assign({}, entries, {
-		views: './src/entry'
-	}),
+	entry: entries,
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: '[name].js',
-		publicPath: ''
+		publicPath: '/'
 	},
 	module: {
 		loaders: [
@@ -27,6 +32,12 @@ module.exports = {
     			loader: 'babel',
     			include: path.join(__dirname, 'src')
 		    },
+			{
+				// Do not transform vendor's CSS with CSS-modules
+				test: /\.css$/,
+				loaders: ['style-loader', 'css-loader'],
+				include: path.join(__dirname, 'node_modules')
+			},
             {
                 test: /\.global\.css$/,
                 loader: 'style-loader!css-loader?sourceMap!postcss-loader',
@@ -46,8 +57,13 @@ module.exports = {
 				include: path.join(__dirname, 'src')
 		    },
 			{
+				test: /\.(ico)$/,
+		    	loader: 'file-loader?name=./[name].[ext]',
+				include: path.join(__dirname, 'src')
+			},
+			{
 				test: /\.ejs$/,
-				loader: 'file?name=[name].html!ejs-html',
+				loader: 'file?name=[name].html!html-minifier!ejs-html',
 				include: path.join(__dirname, 'src')
 			},
         ]
@@ -79,6 +95,38 @@ module.exports = {
 	    new webpack.optimize.UglifyJsPlugin({
 	      compress: {
 	        warnings: false, // ...but do not show warnings in the console (there is a lot of them)
+	      },
+	    }),
+
+		// stylelint css files
+		new StyleLintPlugin({
+			files: 'src/**/*.css',
+			failOnError: true,
+		}),
+
+		// Put it in the end to capture all the HtmlWebpackPlugin's
+	    // assets manipulations and do leak its manipulations to HtmlWebpackPlugin
+	    new OfflinePlugin({
+	      // No need to cache .htaccess. See http://mxs.is/googmp,
+	      // this is applied before any match in `caches` section
+	      excludes: ['.htaccess'],
+
+	      caches: {
+	        main: [':rest:'],
+
+	        // All chunks marked as `additional`, loaded after main section
+	        // and do not prevent SW to install. Change to `optional` if
+	        // do not want them to be preloaded at all (cached only when first loaded)
+	        additional: ['*.chunk.js'],
+	      },
+
+	      // Removes warning for about `additional` section usage
+	      safeToUseOptionalCaches: true,
+
+	      AppCache: {
+	        // Starting from offline-plugin:v3, AppCache by default caches only
+	        // `main` section. This lets it use `additional` section too
+	        caches: ['main', 'additional'],
 	      },
 	    }),
 	],
