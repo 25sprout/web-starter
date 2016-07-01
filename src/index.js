@@ -7,10 +7,11 @@ import { install } from 'offline-plugin/runtime';
 import 'sanitize.css/sanitize.css';
 import './style.global.css';
 
+// const req = require.context('./views', true, /\.ejs$/);
+
 const routingCallback = (view, data = {}) => (ctx, next) => {
 	require.ensure([], require => {
-		const req = require.context('./views', true, /\.ejs$/);
-		const module = req(view);
+		const module = require(`./views/${view}.ejs`);
 		document.getElementById('view').innerHTML = module(data);
 		next(ctx);
 	});
@@ -18,11 +19,11 @@ const routingCallback = (view, data = {}) => (ctx, next) => {
 
 const noop = () => {};
 
-page('/', routingCallback('./home.ejs'), () => {
+page('/', routingCallback('home'), () => {
 	render(<App />, document.getElementById('root'));
 });
-page('/about', routingCallback('./about.ejs'), noop);
-page('*', routingCallback('./404.ejs'), noop);
+page('/about', routingCallback('about'), noop);
+page('*', routingCallback('404'), noop);
 page.start();
 
 // offline plugin install

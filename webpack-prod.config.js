@@ -52,7 +52,7 @@ module.exports = {
 		    },
 			{
 				test: /\.ejs$/,
-				loader: 'html-minifier!ejs-compiled',
+				loader: 'ejs-compiled',
 				include: path.join(__dirname, 'src/views')
 			},
         ]
