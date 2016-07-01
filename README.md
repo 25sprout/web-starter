@@ -1,13 +1,19 @@
 # Web Starter
 
 ### Features
-- webpack
-- react
-- babel / ES6
-- cssnext
-- css module
-- eslint
-- hot/live reload
+- [x] webpack
+- [x] react
+- [x] babel / ES6
+- [x] cssnext
+- [x] css module
+- [x] eslint
+- [x] hot/live reload
+- [x] stylelint
+- [x] json-server fake api
+- [ ] routing
+- [ ] production build optimization
+- [ ] long-term caching
+- [ ] watch for new files
 
 ### Getting Started
 Clone this project, and...
@@ -34,3 +40,6 @@ Built files are now in `dist/`.
 ```bash
 npm run lint
 ```
+
+### json-server
+run the `npm start` command or `npm run json-server` command will start a fake api server with basic CRUD. The port and delay latency for each api call are `8001` and `500ms` by default, you can also change them in the config in `package.json` or by flag `-a` and `-d` respectively.
