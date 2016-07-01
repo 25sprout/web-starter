@@ -3,6 +3,8 @@ import page from 'page';
 import React from 'react';
 import { render } from 'react-dom';
 import App from './components/App';
+import { install } from 'offline-plugin/runtime';
+import 'sanitize.css/sanitize.css';
 import './style.global.css';
 
 const routingCallback = (view, data = {}) => (ctx, next) => {
@@ -22,3 +24,6 @@ page('/', routingCallback('./home.ejs'), () => {
 page('/about', routingCallback('./about.ejs'), noop);
 page('*', routingCallback('./404.ejs'), noop);
 page.start();
+
+// offline plugin install
+install();

@@ -1,12 +1,17 @@
 @import url(http://fonts.googleapis.com/earlyaccess/notosanstc.css);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
 
-html, body {
+html,
+body {
 	margin: 0;
 	padding: 0;
 	height: 100%;
 	width: 100%;
 	font-family: 'Open Sans', 'Noto Sans TC', sans-serif;
+}
+
+body {
+	font-family: 'Roboto', 'Noto Sans TC', sans-serif;
 }
 
 #view {

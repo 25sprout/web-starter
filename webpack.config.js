@@ -3,6 +3,7 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExportFilesWebpackPlugin = require('export-files-webpack-plugin');
+var StyleLintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = {
 	devtool: 'eval',
@@ -10,12 +11,14 @@ module.exports = {
 		'webpack-dev-server/client?http://0.0.0.0:8000',
 		'webpack/hot/only-dev-server',
         'react-hot-loader/patch',
+		'babel-polyfill',
+		'whatwg-fetch',
 		'./src/index'
 	],
 	output: {
 		path: path.join(__dirname, 'dist'),
-		filename: '[name].js',
-		publicPath: ''
+		filename: 'bundle.js',
+		publicPath: '/'
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
@@ -23,8 +26,12 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: './src/index.ejs',
 			filename: 'index.html',
+			inject: true,
+			favicon: 'src/favicon.ico',
 		}),
-		new ExportFilesWebpackPlugin('index.html'),
+		new StyleLintPlugin({
+			files: 'src/**/*.css',
+		}),
 	],
 	module: {
 		loaders: [
@@ -33,6 +40,12 @@ module.exports = {
     			loaders: ['babel'],
     			include: path.join(__dirname, 'src')
 		    },
+			{
+				// Do not transform vendor's CSS with CSS-modules
+				test: /\.css$/,
+				loaders: ['style-loader', 'css-loader'],
+				include: path.join(__dirname, 'node_modules')
+			},
             {
                 test: /\.global\.css$/,
                 loader: 'style-loader!css-loader!postcss-loader',

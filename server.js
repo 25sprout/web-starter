@@ -2,19 +2,25 @@
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
-var pacakge = require('./package.json');
+var packageConfig = require('./package.json').config;
 var ip = require('ip');
 var argv = require('yargs')
-    .default('p', pacakge.config.port || 8000)
+    .default('p', packageConfig.PORT || 8000)
+    .default('a', packageConfig.DB_PORT || 8001)
+    .default('d', packageConfig.DELAY || 500)
     .argv;
+var jsonServer = require('json-server');
+var pause = require('connect-pause');
 
 var PORT = argv.p;
+var DB_PORT = argv.a;
+var DELAY = argv.d;
 
 new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
   hot: true,
   noInfo: true,
-  historyApiFallback: true
+  historyApiFallback: true,
 }).listen(PORT, '0.0.0.0', function (err, result) {
   if (err) {
     return console.log(err);
@@ -22,4 +28,16 @@ new WebpackDevServer(webpack(config), {
 
   console.log(`Server started at http://localhost:${PORT}/`);
   console.log(`Tunnel started at http://${ip.address()}:${PORT}/`);
+
+  jsonServer.create()
+      .use(jsonServer.defaults())
+      .use(pause(DELAY))
+      .use(jsonServer.router('db.json'))
+      .listen(DB_PORT, function(err) {
+          if (err) {
+              return console.log(err);
+          }
+
+          console.log(`Fake api server opened at port ${DB_PORT}`);
+      })
 });
