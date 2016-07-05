@@ -24,7 +24,21 @@ page('/', routingCallback('home'), () => {
 		render(<App />, document.getElementById('root'));
 	});
 });
-page('/about', routingCallback('about'), noop);
+page('/counter', routingCallback('counter', { number: 0 }), () => {
+	require.ensure([], require => {
+		const $ = require('jquery');
+		const module = require('./js/counter').default;
+		$(document).ready(module);
+	});
+});
+page('/react', routingCallback('counter', { number: 0 }), () => {
+	require.ensure([], require => {
+		const React = require('react');
+		const render = require('react-dom').render;
+		const Counter = require('./components/Counter').default;
+		render(<Counter />, document.getElementsByClassName('counter')[0]);
+	});
+});
 page('*', routingCallback('404'), noop);
 page.start();
 

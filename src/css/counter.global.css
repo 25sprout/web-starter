@@ -1,0 +1,17 @@
+.counter {
+	width: 100%;
+	text-align: center;
+
+	& .number {
+		font-size: 80px;
+	}
+
+	& button.btn {
+		font-size: 30px;
+		width: 50px;
+		height: 50px;
+		text-align: center;
+		display: inline-block;
+		cursor: pointer;
+	}
+}
