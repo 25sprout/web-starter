@@ -11,6 +11,7 @@ module.exports = {
 	entry: [
 		'babel-polyfill',
 		'whatwg-fetch',
+		'html5-history-api',
 		'./src/index',
 	],
 	output: {
