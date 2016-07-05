@@ -4,8 +4,6 @@ import { install } from 'offline-plugin/runtime';
 import 'sanitize.css/sanitize.css';
 import './style.global.css';
 
-// const req = require.context('./views', true, /\.ejs$/);
-
 const routingCallback = (view, data = {}) => (ctx, next) => {
 	require.ensure([], require => {
 		const module = require(`./views/${view}.ejs`);
@@ -16,6 +14,8 @@ const routingCallback = (view, data = {}) => (ctx, next) => {
 
 const noop = () => {};
 
+history.redirect();
+page.base();
 page('/', routingCallback('home'), () => {
 	require.ensure([], require => {
 		const React = require('react');

@@ -13,6 +13,7 @@ module.exports = {
         'react-hot-loader/patch',
 		'babel-polyfill',
 		'whatwg-fetch',
+		'html5-history-api',
 		'./src/index'
 	],
 	output: {
