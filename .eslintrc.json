@@ -26,7 +26,7 @@
         "quotes": 0,
         "brace-style": [2, "1tbs"],
         "comma-dangle": ["error", "always-multiline"],
-        "max-len": [2, 80],
+        "max-len": [2, 120],
         "semi": [2, "always", { "omitLastInOneLineBlock": true }],
         "no-cond-assign": [2, "except-parens"],
         "func-names": 0,
