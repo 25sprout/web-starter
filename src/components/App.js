@@ -5,7 +5,9 @@ import sprout from '../assets/sprout.png';
 const App = () => (
 	<div className={styles.container}>
 		<h1>Hello, sprouters!</h1>
-		<img src={sprout} alt="sprout" />
+		<a href="about.html">
+			<img src={sprout} alt="sprout" />
+		</a>
 	</div>
 );
 
