@@ -16,14 +16,9 @@ const noop = () => {};
 
 history.redirect();
 page.base();
-page('/', routingCallback('home'), () => {
-	require.ensure([], require => {
-		const React = require('react');
-		const render = require('react-dom').render;
-		const App = require('./components/App').default;
-		render(<App />, document.getElementById('root'));
-	});
-});
+
+page('/', routingCallback('home', { sprout: require('./assets/sprout.png') }), noop);
+
 page('/counter', routingCallback('counter', { number: 0, styles: require('./css/counter.css') }), () => {
 	require.ensure([], require => {
 		const $ = require('jquery');
@@ -31,6 +26,7 @@ page('/counter', routingCallback('counter', { number: 0, styles: require('./css/
 		$(document).ready(module);
 	});
 });
+
 page('/react', routingCallback('react'), () => {
 	require.ensure([], require => {
 		const React = require('react');
@@ -39,7 +35,9 @@ page('/react', routingCallback('react'), () => {
 		render(<Counter />, document.getElementById('counter'));
 	});
 });
+
 page('*', routingCallback('404'), noop);
+
 page.start();
 
 // offline plugin install
