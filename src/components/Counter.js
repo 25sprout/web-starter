@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/counter.global.css';
+import styles from '../css/counter.css';
 
 class Counter extends React.Component {
 	constructor() {
@@ -20,16 +20,16 @@ class Counter extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<div className="number">{this.state.number}</div>
+			<div className={styles.counter}>
+				<div className={styles.number}>{this.state.number}</div>
 				<div className="btn-group">
 					<button
 						onClick={this.handleMinus}
-						className="btn minus"
+						className={`${styles.btn} minus`}
 					>-</button>
 					<button
 						onClick={this.handlePlus}
-						className="btn plus"
+						className={`${styles.btn} plus`}
 					>+</button>
 				</div>
 			</div>

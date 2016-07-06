@@ -1,13 +1,13 @@
 import $ from 'jquery';
-import '../css/counter.global.css';
+import styles from '../css/counter.css';
 
 const main = () => {
-	$('.btn.plus').click(() => {
-		$('.number').text((i, num) => parseInt(num, 10) + 1);
+	$(`.${styles.btn}.plus`).click(() => {
+		$(`.${styles.number}`).text((i, num) => parseInt(num, 10) + 1);
 	});
 
-	$('.btn.minus').click(() => {
-		$('.number').text((i, num) => parseInt(num, 10) - 1);
+	$(`.${styles.btn}.minus`).click(() => {
+		$(`.${styles.number}`).text((i, num) => parseInt(num, 10) - 1);
 	});
 };
 

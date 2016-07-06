@@ -24,19 +24,19 @@ page('/', routingCallback('home'), () => {
 		render(<App />, document.getElementById('root'));
 	});
 });
-page('/counter', routingCallback('counter', { number: 0 }), () => {
+page('/counter', routingCallback('counter', { number: 0, styles: require('./css/counter.css') }), () => {
 	require.ensure([], require => {
 		const $ = require('jquery');
 		const module = require('./js/counter').default;
 		$(document).ready(module);
 	});
 });
-page('/react', routingCallback('counter', { number: 0 }), () => {
+page('/react', routingCallback('react'), () => {
 	require.ensure([], require => {
 		const React = require('react');
 		const render = require('react-dom').render;
 		const Counter = require('./components/Counter').default;
-		render(<Counter />, document.getElementsByClassName('counter')[0]);
+		render(<Counter />, document.getElementById('counter'));
 	});
 });
 page('*', routingCallback('404'), noop);
