@@ -36,7 +36,21 @@ page('/react', routingCallback('react'), () => {
 	});
 });
 
-page('*', routingCallback('404'), noop);
+page('/:lang/about', ctx => {
+	require.ensure([], require => {
+		const module = require(`./views/about.ejs`);
+		const headingMapping = {
+			EN: 'About',
+			TW: '關於我們',
+		};
+		const heading = headingMapping[ctx.params.lang] || page.redirect('/404');
+		document.getElementById('view').innerHTML = module({ heading });
+	});
+});
+
+page('/404', routingCallback('404'), noop);
+
+page('*', '/404');
 
 page.start();
 
