@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import CSSModules from 'react-css-modules';
 import styles from './Counter.css';
 import { Card } from 'material-ui/Card';
 import BackToHome from './BackToHome';
@@ -9,7 +10,7 @@ import ContentMinus from 'material-ui/svg-icons/content/remove';
 const Counter = ({ count, increment, decrement }) => (
 	<Card style={{ padding: '30px 40px' }}>
 		<BackToHome />
-		<div className={styles.number}>{count}</div>
+		<div styleName="number">{count}</div>
 
 		<FloatingActionButton onClick={decrement}>
 			<ContentMinus />
@@ -24,4 +25,4 @@ Counter.propsTypes = {
 	count: PropTypes.number.isRequired,
 };
 
-export default Counter;
+export default CSSModules(Counter, styles);
