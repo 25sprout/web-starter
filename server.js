@@ -10,7 +10,15 @@ var argv = require('yargs')
     .default('d', packageConfig.DELAY || 500)
     .argv;
 var jsonServer = require('json-server');
-var pause = require('connect-pause');
+
+/* re-implementation of connect-pause for handling delay of 0 */
+var pause = function(delay, err) {
+    delay = delay || 0; // original is 1000
+
+    return function(req, res, next) {
+        setTimeout(next, delay, err);
+    };
+};
 
 var PORT = argv.p;
 var DB_PORT = argv.a;
